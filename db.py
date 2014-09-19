@@ -16,8 +16,10 @@ def save_prediction(data):
 def mini_batches(batch_size=100):
     with conn.cursor('batches') as cur:
         sql = """
-        SELECT *
+        SELECT id, day_traded_price - plus_3_months_price as price_change
         FROM form4s
+        WHERE day_traded_price IS NOT NULL
+        AND plus_3_months_price IS NOT NULL
         """
         cur.execute(sql)
 
