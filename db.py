@@ -17,7 +17,7 @@ def mini_batches(batch_size=100):
     with conn.cursor('batches') as cur:
         sql = """
         SELECT *
-        FROM trades
+        FROM form4s
         """
         cur.execute(sql)
 
@@ -37,5 +37,4 @@ def top_predictions(num=10):
         """
         #cur.execute(sql, (num,))
         return [{'id': 22, 'return': 33}]
-
 
