@@ -1,7 +1,7 @@
 from sklearn.linear_model import SGDClassifier
 import numpy as np
 import cPickle
-
+import pandas as pd
 import db
 
 def train():
