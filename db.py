@@ -1,6 +1,6 @@
 import psycopg2 as pg
 
-conn = pg.connect(database='insider')
+conn = pg.connect(database='insider_ideas_dev')
 
 def save_prediction(data):
     with conn.cursor() as cur:
