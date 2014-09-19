@@ -4,6 +4,27 @@ import cPickle
 import pandas as pd
 import db
 
+'''
+id
+cik
+title
+link
+term
+date
+file_id
+created_at
+updated_at
+ticker
+company_id
+document // this is a json blob see README for more deets
+day_traded_price
+plus_3_months_price
+plus_6_months_price
+plus_12_months_price
+day_traded_volume
+day_traded_market_cap
+insider_id
+'''
 def train():
     model = SGDClassifier()
     for batch_no, batch in enumerate(db.mini_batches(100)):
@@ -18,6 +39,7 @@ def vectorize(raw):
 
 def vectorize_batch(batch):
     df = pd.DataFrame(batch)
+    print df
     return (df.drop('price_change').values, df['price_change'].values)
 
 def pickle(model):
