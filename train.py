@@ -27,10 +27,10 @@ company_id
 '''
 def train():
     model = SGDClassifier()
+    all_classes = np.array([0, 1])
     for batch_no, batch in enumerate(db.mini_batches(100)):
         X, y = vectorize_batch(batch)
-        print y 
-        model.partial_fit(X, y)
+        model.partial_fit(X, y, classes = all_classes)
         if sampling and batch_no == 10:
             break
     return model
