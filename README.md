@@ -1,6 +1,7 @@
 # Insider AI Model
 
 ## form4s table:
+```py
 '''
 id
 cik
@@ -22,11 +23,13 @@ day_traded_volume
 day_traded_market_cap
 insider_id
 '''
+```
 
 ## form4s#document:
 
 The document data is stored as an hstore column that looks like this
 
+```json
 {"d":
   {"schema_version"=>"X0202",
    "document_type"=>"4",
@@ -129,3 +132,4 @@ The document data is stored as an hstore column that looks like this
    "per_code_k"=>0,
    "per_code_u"=>0}
 }
+```
