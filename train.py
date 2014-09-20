@@ -38,7 +38,37 @@ def vectorize(raw):
     return vectorize_batch([raw])
 
 def vectorize_batch(batch):
-    df = pd.DataFrame(batch)
+    df = pd.DataFrame(data = batch, columns = [
+        "price_change",
+        "sum_shares",
+        "sum_shares_after",
+        "day_traded_volume",
+        "day_traded_price",
+        "day_traded_market_cap",
+        "is_officer",
+        "is_director",
+        "is_ten_percent_owner",
+        "is_other",
+        "per_code_p",
+        "per_code_s",
+        "per_code_v",
+        "per_code_a",
+        "per_code_d",
+        "per_code_f",
+        "per_code_i",
+        "per_code_m",
+        "per_code_c",
+        "per_code_e",
+        "per_code_h",
+        "per_code_o",
+        "per_code_x",
+        "per_code_g",
+        "per_code_l",
+        "per_code_w",
+        "per_code_z",
+        "per_code_j",
+        "per_code_k",
+        "per_code_u"])
     print df
     return (df.drop('price_change').values, df['price_change'].values)
 
@@ -50,5 +80,3 @@ if __name__ == '__main__':
     sampling = True
     model = train()
     pickle(model)
-
-
