@@ -39,6 +39,7 @@ def vectorize(raw):
 
 def vectorize_batch(batch):
     df = pd.DataFrame(batch)
+    print df
     return (df.drop('price_change').values, df['price_change'].values)
 
 def pickle(model):
