@@ -29,7 +29,7 @@ insider_id
 
 The document data is stored as an hstore column that looks like this
 
-```json
+```rb
 {"d":
   {"schema_version"=>"X0202",
    "document_type"=>"4",
