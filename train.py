@@ -29,6 +29,7 @@ def train():
     model = SGDClassifier()
     for batch_no, batch in enumerate(db.mini_batches(100)):
         X, y = vectorize_batch(batch)
+        print y 
         model.partial_fit(X, y)
         if sampling and batch_no == 10:
             break
@@ -44,7 +45,6 @@ def vectorize_batch(batch):
         "sum_shares_after",
         "day_traded_volume",
         "day_traded_price",
-        "day_traded_market_cap",
         "is_officer",
         "is_director",
         "is_ten_percent_owner",
@@ -69,8 +69,7 @@ def vectorize_batch(batch):
         "per_code_j",
         "per_code_k",
         "per_code_u"])
-    print df
-    return (df.drop('price_change').values, df['price_change'].values)
+    return (df.drop(['price_change'], axis = 1).values, df['price_change'].values)
 
 def pickle(model):
     with open('trained_model.pickle', 'w') as f:

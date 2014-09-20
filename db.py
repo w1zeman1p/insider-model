@@ -27,7 +27,6 @@ def mini_batches(batch_size=100):
           plus_12_months_price,
           day_traded_price,
           day_traded_volume,
-          day_traded_market_cap,
           document
         FROM
           form4s
@@ -62,7 +61,6 @@ def extract_features(tpl):
 
     day_traded_volume = tpl['day_traded_volume']
     plus_12_months_price = tpl['plus_12_months_price']
-    day_traded_market_cap = tpl['day_traded_market_cap']
 
     document = json.loads(tpl['document']['d'])
     sum_shares = document['sum_shares']
@@ -104,7 +102,6 @@ def extract_features(tpl):
             sum_shares_after,
             day_traded_volume,
             day_traded_price,
-            day_traded_market_cap,
             is_officer,
             is_director,
             is_ten_percent_owner,
