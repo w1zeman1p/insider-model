@@ -8,18 +8,17 @@ port = 8765
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    data = json.dumps(request.json)
-
+    data = request.json
     print "----------------"
     print data
     print "----------------"
 
     prediction = model.predict(data)
-    data['prediction'] = prediction
+    data['prediction'] = prediction[0]
 
     db.save_prediction(data)
 
-    resp = { 'prediction': prediction }
+    resp = { 'prediction': prediction[0] }
     return json.dumps(resp)
 
 @app.route('/top')

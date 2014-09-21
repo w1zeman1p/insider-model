@@ -1,16 +1,16 @@
 require 'rest_client'
 
 filing = {
-  sum_shares: 200,
+  sum_shares: -200,
   sum_shares_after: 200,
   day_traded_volume: 200,
   day_traded_price: 200,
-  is_officer: 1,
+  is_officer: 0,
   is_director: 0,
-  is_ten_percent_owner: 0,
+  is_ten_percent_owner: 1,
   is_other: 0,
-  per_code_p: 100,
-  per_code_s: 0,
+  per_code_p: 0,
+  per_code_s: 100,
   per_code_v: 0,
   per_code_a: 0,
   per_code_d: 0,
@@ -31,7 +31,7 @@ filing = {
   per_code_u: 0
 }
 
-puts RestClieint.post(
+puts RestClient.post(
   'http://localhost:8765/predict',
   filing.to_json,
   content_type: :json,

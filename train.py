@@ -36,7 +36,37 @@ def train():
     return model
 
 def vectorize(raw):
-    return vectorize_batch([raw])
+    datum = [
+      raw['sum_shares'],
+      raw['sum_shares_after'],
+      raw['day_traded_volume'],
+      raw['day_traded_price'],
+      raw['is_officer'],
+      raw['is_director'],
+      raw['is_ten_percent_owner'],
+      raw['is_other'],
+      raw['per_code_p'],
+      raw['per_code_s'],
+      raw['per_code_v'],
+      raw['per_code_a'],
+      raw['per_code_d'],
+      raw['per_code_f'],
+      raw['per_code_i'],
+      raw['per_code_m'],
+      raw['per_code_c'],
+      raw['per_code_e'],
+      raw['per_code_h'],
+      raw['per_code_o'],
+      raw['per_code_x'],
+      raw['per_code_g'],
+      raw['per_code_l'],
+      raw['per_code_w'],
+      raw['per_code_z'],
+      raw['per_code_j'],
+      raw['per_code_k'],
+      raw['per_code_u']
+    ]
+    return datum
 
 def vectorize_batch(batch):
     df = pd.DataFrame(data = batch, columns = [
