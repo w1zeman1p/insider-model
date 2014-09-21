@@ -31,7 +31,7 @@ def train():
     for batch_no, batch in enumerate(db.mini_batches(100)):
         X, y = vectorize_batch(batch)
         model.partial_fit(X, y, classes = all_classes)
-        if sampling and batch_no == 10:
+        if sampling and batch_no == 1000:
             break
     return model
 

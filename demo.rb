@@ -1,16 +1,17 @@
 require 'rest_client'
+require 'json'
 
 filing = {
-  sum_shares: -200,
-  sum_shares_after: 200,
-  day_traded_volume: 200,
+  sum_shares: 20000000,
+  sum_shares_after: 20000000,
+  day_traded_volume: 200000000000,
   day_traded_price: 200,
-  is_officer: 0,
+  is_officer: 1,
   is_director: 0,
-  is_ten_percent_owner: 1,
+  is_ten_percent_owner: 0,
   is_other: 0,
-  per_code_p: 0,
-  per_code_s: 100,
+  per_code_p: 100,
+  per_code_s: 0,
   per_code_v: 0,
   per_code_a: 0,
   per_code_d: 0,
