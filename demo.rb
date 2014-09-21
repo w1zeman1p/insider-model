@@ -32,10 +32,10 @@ filing = {
   per_code_u: 0
 }
 
-puts RestClient.post(
+puts JSON.parse(RestClient.post(
   'http://localhost:8765/predict',
   filing.to_json,
   content_type: :json,
   accept: :json
-).body
+).body)["prediction"]
 
