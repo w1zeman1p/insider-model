@@ -57,7 +57,11 @@ def top_predictions(num=10):
 def extract_features(tpl):
     plus_3_months_price = tpl['plus_3_months_price']
     day_traded_price = tpl['day_traded_price']
-    price_change = plus_3_months_price - day_traded_price
+    price_change_diff = plus_3_months_price - day_traded_price
+    if price_change_diff > 0.10:
+        price_change = 1
+    else:
+        price_change = 0
 
     day_traded_volume = tpl['day_traded_volume']
     plus_12_months_price = tpl['plus_12_months_price']
