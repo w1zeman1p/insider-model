@@ -1,16 +1,18 @@
 import model
-from lib.json import jsonify
 import db
 
-from flask import Flask, request, Response
+from flask import Flask, request, Response, json
 
 app = Flask(__name__)
 port = 8765
 
 @app.route('/predict', methods=['POST'])
-@jsonify
 def predict():
-    data = request.json
+    data = json.dumps(request.json)
+
+    print "----------------"
+    print data
+    print "----------------"
 
     prediction = model.predict(data)
     data['prediction'] = prediction
@@ -18,10 +20,9 @@ def predict():
     db.save_prediction(data)
 
     resp = { 'prediction': prediction }
-    return resp
+    return json.dumps(resp)
 
 @app.route('/top')
-@jsonify
 def top():
     predictions = db.top_predictions()
     return predictions

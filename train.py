@@ -68,7 +68,8 @@ def vectorize_batch(batch):
         "per_code_z",
         "per_code_j",
         "per_code_k",
-        "per_code_u"])
+        "per_code_u"
+    ])
     return (df.drop(['price_change'], axis = 1).values, df['price_change'].values)
 
 def pickle(model):
