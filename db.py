@@ -9,9 +9,9 @@ def save_prediction(data):
     with conn.cursor() as cur:
         sql = """
         INSERT INTO predictions
-        (c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29)
+        (c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30)
         VALUES
-        (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         cur.execute(sql, tuple(data.values()))
         conn.commit()
@@ -27,9 +27,23 @@ def mini_batches(batch_size=100):
           plus_12_months_price,
           day_traded_price,
           day_traded_volume,
+          (SELECT
+            AVG(CASE WHEN f.day_traded_price <> 0 THEN (f.plus_3_months_price - f.day_traded_price) / f.day_traded_price ELSE 0 END) as return
+          FROM
+            form4s f
+          JOIN
+            insiders i
+          ON
+            f.insider_id = i.id
+          WHERE
+            i.id = f1.insider_id
+          AND
+            CAST(f.date as date) < (CAST(f1.date as date) - 7)
+          GROUP BY
+            i.id) as insider_avg_return,
           document
         FROM
-          form4s
+          form4s f1
         WHERE
           day_traded_price IS NOT NULL
         AND
@@ -57,8 +71,9 @@ def top_predictions(num=10):
 def extract_features(tpl):
     plus_3_months_price = tpl['plus_3_months_price']
     day_traded_price = tpl['day_traded_price']
+    insider_avg_return = tpl['insider_avg_return'] or 0
     price_change_diff = plus_3_months_price - day_traded_price
-    if price_change_diff > 0.10:
+    if price_change_diff > 0.15:
         price_change = 1
     else:
         price_change = 0
@@ -106,6 +121,7 @@ def extract_features(tpl):
             sum_shares_after,
             day_traded_volume,
             day_traded_price,
+            insider_avg_return,
             is_officer,
             is_director,
             is_ten_percent_owner,

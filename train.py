@@ -31,7 +31,7 @@ def train():
     for batch_no, batch in enumerate(db.mini_batches(100)):
         X, y = vectorize_batch(batch)
         model.partial_fit(X, y, classes = all_classes)
-        if sampling and batch_no == 1000:
+        if sampling and batch_no == 10000:
             break
     return model
 
@@ -41,6 +41,7 @@ def vectorize(raw):
       raw['sum_shares_after'],
       raw['day_traded_volume'],
       raw['day_traded_price'],
+      raw['insider_avg_return'] or 0,
       raw['is_officer'],
       raw['is_director'],
       raw['is_ten_percent_owner'],
@@ -75,6 +76,7 @@ def vectorize_batch(batch):
         "sum_shares_after",
         "day_traded_volume",
         "day_traded_price",
+        "insider_avg_return",
         "is_officer",
         "is_director",
         "is_ten_percent_owner",
