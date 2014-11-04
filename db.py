@@ -21,7 +21,13 @@ def mini_batches(batch_size=100):
     with conn.cursor(name = 'batches', cursor_factory = psycopg2.extras.RealDictCursor) as cur:
         sql = """
         SELECT
-          plus_3_months_price - day_traded_price as price_change,
+          CASE WHEN
+            day_traded_price <> 0
+          THEN
+            plus_3_months_price - day_traded_price / day_traded_price
+          ELSE
+            0
+          END as price_change,
           plus_3_months_price,
           plus_6_months_price,
           plus_12_months_price,
@@ -72,8 +78,11 @@ def extract_features(tpl):
     plus_3_months_price = tpl['plus_3_months_price']
     day_traded_price = tpl['day_traded_price']
     insider_avg_return = tpl['insider_avg_return'] or 0
-    price_change_diff = plus_3_months_price - day_traded_price
-    if price_change_diff > 0.15:
+    price_change_diff = 0
+    if day_traded_price != 0:
+        price_change_diff = plus_3_months_price - day_traded_price / day_traded_price
+
+    if price_change_diff > 0.25:
         price_change = 1
     else:
         price_change = 0

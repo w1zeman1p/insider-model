@@ -1,4 +1,5 @@
 from sklearn.linear_model import SGDClassifier
+from sklearn import preprocessing
 import numpy as np
 import cPickle
 import pandas as pd
@@ -31,7 +32,7 @@ def train():
     for batch_no, batch in enumerate(db.mini_batches(100)):
         X, y = vectorize_batch(batch)
         model.partial_fit(X, y, classes = all_classes)
-        if sampling and batch_no == 10000:
+        if sampling and batch_no == 10:
             break
     return model
 
